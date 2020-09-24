@@ -85,6 +85,7 @@
                                 _this.$store.state.showViews.showLoginCard = false; // 关闭显示页面
                                 _this.$store.state.showViews.showCards = true; // 打开文章列表页面
                                 // 请求user信息
+                                _this.username = encodeURIComponent(encodeURIComponent(_this.username)); // 二次编码
                                 let displayUserUrl = _this.$store.state.baseUrl + "/user/getUser?username=" + _this.username;
                                 _this.$axios.get(displayUserUrl).then(function (userRes) {
                                     _this.$store.state.curUser.username = userRes.data.data.username;

@@ -97,6 +97,7 @@
                 let _this = this;
                 this.$axios.get(url).then(function (res){
                     if (res.data.success){
+                        _this.username = encodeURIComponent(encodeURIComponent(_this.username)); // 二次编码
                         let key = res.data.data
                         let loginUrl = _this.$store.state.baseUrl + "/security/login?username=" + _this.username + "&password=" + md5(key + md5(_this.pwd))
                         _this.$axios.get(loginUrl).then(function (loginRes) {
