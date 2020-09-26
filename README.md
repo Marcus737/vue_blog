@@ -1,4 +1,4 @@
-# myblog4_test
+# myblog
 
 ## Project setup
 ```
