@@ -2,7 +2,8 @@
     <div class="nav">
         <el-row :gutter="10">
             <el-col :span="5">
-                <h2 class="logo" style="margin-top: 1vh; font-family: 华文仿宋,serif; color: skyblue">NEVER GIVE UP</h2>
+                <img style="float: left;height: 8vh; width: 14vw" src="../assets/logo.png"/>
+<!--                <h2 class="logo" style="margin-top: 1vh; font-family: 华文仿宋,serif; color: skyblue">NEVER GIVE UP</h2>-->
             </el-col>
             <el-col :span="19">
                 <div class="componentsOfNav">
@@ -54,11 +55,15 @@
                 })
             },
             login(){
-                this.$store.state.showViews.showLoginCard = true;
-                this.$store.state.showViews.showCards = false;
+                let showList = ["showLoginCard"]
+                this.$store.commit("alterView", showList)
+                // this.$store.state.showViews.showLoginCard = true;
+                // this.$store.state.showViews.showCards = false;
             },
             recovery(){
-                this.$store.state.showViews.showCards = true;
+                let showList = ["showCards", "showQuickSer"]
+                this.$store.commit("alterView", showList)
+                // this.$store.state.showViews.showCards = true;
                 this.$store.state.nav.locationStr = "";
                 this.$store.commit('clearArticleList');
                 this.$store.commit('recovery');

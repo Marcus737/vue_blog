@@ -1,4 +1,4 @@
-<template>
+﻿<template>
     <div class="loginCardRoot" >
         <div style="text-align: center; margin-left: 1vw">
             <div style="padding-top: 2vh">
@@ -69,25 +69,29 @@
                     alert("密码不能为空");
                     return;
                 }
-                let url = this.$store.state.baseUrl + "/security/randomSalt?username=" + this.username;
-
+                let url = this.$store.state.baseUrl + "/security/randomSalt";
+                let saltParams = new FormData();
+                saltParams.append("username",this.username);
                 let _this = this;
-                this.$axios.get(url).then(function (res){
+                this.$axios.post(url, saltParams).then(function (res){
                     if (res.data.success){
                         let key = res.data.data
-                        let loginUrl = _this.$store.state.baseUrl + "/security/login?username=" + _this.username + "&password=" + md5(key + md5(_this.pwd))
-                        _this.$axios.get(loginUrl).then(function (loginRes) {
+                        let loginUrl = _this.$store.state.baseUrl + "/security/login"
+                        let loginParams = new FormData();
+                        loginParams.append("username", _this.username);
+                        loginParams.append("password", md5(key + md5(_this.pwd)));
+                        _this.$axios.post(loginUrl, loginParams).then(function (loginRes) {
                             if (loginRes.data.success){
                                 _this.$store.state.curUser.isLogin = true;
                                 _this.$message.success("登录成功");
                                 _this.$store.state.curUser.token = loginRes.headers.token;
-                                console.log(loginRes.headers);
                                 _this.$store.state.showViews.showLoginCard = false; // 关闭显示页面
                                 _this.$store.state.showViews.showCards = true; // 打开文章列表页面
                                 // 请求user信息
-                                _this.username = encodeURIComponent(encodeURIComponent(_this.username)); // 二次编码
-                                let displayUserUrl = _this.$store.state.baseUrl + "/user/getUser?username=" + _this.username;
-                                _this.$axios.get(displayUserUrl).then(function (userRes) {
+                                let displayUserUrl = _this.$store.state.baseUrl + "/user/getUser";
+                                let userParams = new FormData();
+                                userParams.append("username", _this.username);
+                                _this.$axios.post(displayUserUrl, userParams).then(function (userRes) {
                                     _this.$store.state.curUser.username = userRes.data.data.username;
                                     _this.$store.state.curUser.userId = userRes.data.data.userId;
                                     _this.$store.state.curUser.avatar = _this.$store.state.baseDownloadUrl +  userRes.data.data.avatar;
@@ -103,15 +107,19 @@
                 })
             },
             createUser(){
-                this.$store.state.showViews.showLoginCard = false;
-                this.$store.state.showViews.showCreateCard = true;
+                let showList = ["showCreateCard"]
+                this.$store.commit("alterView", showList)
+                // this.$store.state.showViews.showLoginCard = false;
+                // this.$store.state.showViews.showCreateCard = true;
             },
             resetPwd(){
                 alert("重置密码")
             },
             goBack(){
-                this.$store.state.showViews.showLoginCard = false;
-                this.$store.state.showViews.showCards = true;
+                let showList = ["showCards"]
+                this.$store.commit("alterView", showList)
+                // this.$store.state.showViews.showLoginCard = false;
+                // this.$store.state.showViews.showCards = true;
             }
         },
     }

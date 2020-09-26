@@ -18,8 +18,8 @@
                 <ArticleDetail v-show="this.$store.state.showViews.showMD" />
             </el-col>
             <el-col  :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
-                <QuickSer v-show="this.$store.state.showViews.showQuickSer"/>
-                <CommentDetail v-show="this.$store.state.showViews.showCommentPage"/>
+                <QuickSer v-if="this.$store.state.showViews.showQuickSer"/>
+                <CommentDetail v-if="this.$store.state.showViews.showCommentPage"/>
             </el-col>
         </el-row>
     </div>

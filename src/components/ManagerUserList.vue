@@ -80,7 +80,7 @@
                     <template slot-scope="scope">
                         <el-input
                                 v-model="scope.row.avatar"
-                                :disabled="scope.row.disable">
+                                disabled="true">
                         </el-input>
                     </template>
                 </el-table-column>

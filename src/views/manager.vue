@@ -93,14 +93,18 @@
                     alert("密码不能为空");
                     return;
                 }
-                let url = this.$store.state.baseUrl + "/security/randomSalt?username=" + this.username;
+                let url = this.$store.state.baseUrl + "/security/randomSalt";
+                let saltParams = new FormData();
+                saltParams.append("username",this.username);
                 let _this = this;
-                this.$axios.get(url).then(function (res){
+                this.$axios.post(url, saltParams).then(function (res){
                     if (res.data.success){
-                        _this.username = encodeURIComponent(encodeURIComponent(_this.username)); // 二次编码
                         let key = res.data.data
-                        let loginUrl = _this.$store.state.baseUrl + "/security/login?username=" + _this.username + "&password=" + md5(key + md5(_this.pwd))
-                        _this.$axios.get(loginUrl).then(function (loginRes) {
+                        let loginUrl = _this.$store.state.baseUrl + "/security/login"
+                        let loginParams = new FormData();
+                        loginParams.append("username", _this.username);
+                        loginParams.append("password", md5(key + md5(_this.pwd)));
+                        _this.$axios.post(loginUrl, loginParams).then(function (loginRes) {
                             if (loginRes.data.success){
                                 _this.$message.success("登录成功");
                                 _this.$store.state.curUser.ExpireToken = loginRes.headers.expiretoken;

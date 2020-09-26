@@ -354,7 +354,7 @@
                 params.append('articleCover', this.imgFile);
                 this.$axios.post(url, params).then(res =>{
                     if (res.data.success){
-                        _this.$message.success("修改成功");
+                        _this.$message.success("操作成功");
                         _this.refreshData();
                         this.showEditPage = false;
                     }else{

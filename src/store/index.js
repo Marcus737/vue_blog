@@ -44,10 +44,30 @@ export default new Vuex.Store({
             token: ""
 
         },
-        baseUrl: "http://8.129.19.186:4567/myblog",
-        baseDownloadUrl: "http://8.129.19.186:4567/myblog/file/download?path="
+        // baseUrl: "http://8.129.19.186:4567/myblog",
+        // baseDownloadUrl: "http://8.129.19.186:4567/myblog/file/download?path="
+        baseUrl: "http://10.23.61.21:4567/myblog",
+        baseDownloadUrl: "http://10.23.61.21:4567/myblog/file/download?path="
     },
     mutations: {
+        alterView(state, showList){
+            if(showList.length === 0){
+                return;
+            }
+            //其余都不显示
+            for (let view of Object.keys(state.showViews)) {
+                state.showViews[view] = false
+                for (let showViewIndex in showList){
+                    if (showList[showViewIndex] === view){
+                        // 显示该组件
+                        state.showViews[view] = true;
+                        showList.splice(showViewIndex, 1);
+                        break;
+                    }
+                }
+            }
+
+        },
         parseArticleList(state, tempArticleList) {
             for (let article of tempArticleList) {
                 article.cover = state.baseDownloadUrl + article.cover;

@@ -87,8 +87,10 @@
         },
         methods: {
             goBack(){
-                this.$store.state.showViews.showCreateCard = false;
-                this.$store.state.showViews.showLoginCard = true;
+                let showList = ["showLoginCard"]
+                this.$store.commit("alterView", showList)
+                // this.$store.state.showViews.showCreateCard = false;
+                // this.$store.state.showViews.showLoginCard = true;
             },
             createUser(){
                 if (this.username === null && this.pwd === null){
