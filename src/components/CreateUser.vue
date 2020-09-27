@@ -93,7 +93,7 @@
                 // this.$store.state.showViews.showLoginCard = true;
             },
             createUser(){
-                if (this.username === null && this.pwd === null){
+                if (this.username === "" || this.pwd === ""){
                     this.$message.error("用户名密码不能为空");
                     return;
                 }
@@ -113,8 +113,8 @@
                     if (res.data.success){
                         this.$message.success("创建成功");
                     }
-                    _this.$store.state.showViews.showCreateCard = false;
-                    _this.$store.state.showViews.showLoginCard = true;
+                    let showList = ["showLoginCard"]
+                    this.$store.commit("alterView", showList)
                 }).catch(error => {
                     this.$message.error("创建失败" + error);
                 })

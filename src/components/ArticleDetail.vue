@@ -43,10 +43,6 @@
             goBack() {
                 let showList = ["showCards", "showQuickSer"]
                 this.$store.commit("alterView", showList)
-                // this.$store.state.showViews.showMD = false;
-                // this.$store.state.showViews.showCards = true;
-                // this.$store.state.showViews.showQuickSer = true;
-                // this.$store.state.showViews.showCommentPage = false;
             }
         }
     }

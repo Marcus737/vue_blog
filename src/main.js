@@ -5,6 +5,14 @@ import store from './store'
 
 Vue.config.productionTip = false
 
+new Vue({
+  router,
+  store,
+  el: '#app',
+  render: h => h(App)
+});
+
+
 //axios开始
 import axios from 'axios';
 
@@ -34,17 +42,6 @@ axios.interceptors.response.use(function (response) {
 });
 
 //axios结束
-
-// element ui
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI)
-new Vue({
-  router,
-  store,
-  el: '#app',
-  render: h => h(App)
-});
 
 //mavon-editor开始
 import mavonEditor from 'mavon-editor';

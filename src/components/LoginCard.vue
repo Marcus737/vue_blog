@@ -36,12 +36,12 @@
             <div style="height: 60px">
                 <el-button @click="login" type="info" style="width: 250px" ><span style="letter-spacing: 1vw;">登录</span></el-button>
             </div>
-            <div style="float: left; margin-left: 1vw">
+            <div style="float: left; margin-left: 5vw">
                 <el-link @click="createUser" type="primary">现在注册</el-link>
             </div>
-            <div style="float: right; margin-right: 1vw">
-                <el-link @click="resetPwd" type="primary">忘记密码？</el-link>
-            </div>
+<!--            <div style="float: right; margin-right: 1vw">-->
+<!--                <el-link @click="resetPwd" type="primary">忘记密码？</el-link>-->
+<!--            </div>-->
             <div>
                 <el-link @click="goBack" type="primary">返回</el-link>
             </div>
@@ -85,8 +85,8 @@
                                 _this.$store.state.curUser.isLogin = true;
                                 _this.$message.success("登录成功");
                                 _this.$store.state.curUser.token = loginRes.headers.token;
-                                _this.$store.state.showViews.showLoginCard = false; // 关闭显示页面
-                                _this.$store.state.showViews.showCards = true; // 打开文章列表页面
+                                let showList = ["showCards", "showQuickSer"]
+                                _this.$store.commit("alterView", showList)
                                 // 请求user信息
                                 let displayUserUrl = _this.$store.state.baseUrl + "/user/getUser";
                                 let userParams = new FormData();
@@ -94,6 +94,7 @@
                                 _this.$axios.post(displayUserUrl, userParams).then(function (userRes) {
                                     _this.$store.state.curUser.username = userRes.data.data.username;
                                     _this.$store.state.curUser.userId = userRes.data.data.userId;
+                                    _this.$store.state.curUser.email = userRes.data.data.email;
                                     _this.$store.state.curUser.avatar = _this.$store.state.baseDownloadUrl +  userRes.data.data.avatar;
                                 })
                             }else {
@@ -109,17 +110,13 @@
             createUser(){
                 let showList = ["showCreateCard"]
                 this.$store.commit("alterView", showList)
-                // this.$store.state.showViews.showLoginCard = false;
-                // this.$store.state.showViews.showCreateCard = true;
             },
             resetPwd(){
                 alert("重置密码")
             },
             goBack(){
-                let showList = ["showCards"]
+                let showList = ["showCards", "showQuickSer"]
                 this.$store.commit("alterView", showList)
-                // this.$store.state.showViews.showLoginCard = false;
-                // this.$store.state.showViews.showCards = true;
             }
         },
     }

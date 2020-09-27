@@ -2,8 +2,8 @@
     <div class="nav">
         <el-row :gutter="10">
             <el-col :span="5">
-                <img style="float: left;height: 8vh; width: 14vw" src="../assets/logo.png"/>
-<!--                <h2 class="logo" style="margin-top: 1vh; font-family: 华文仿宋,serif; color: skyblue">NEVER GIVE UP</h2>-->
+<!--                <img style="float: left;height: 8vh; width: 14vw" src="../assets/logo.png"/>-->
+                <h2 class="logo" style="margin-top: 1vh; font-family: 华文仿宋,serif; color: skyblue">NEVER GIVE UP</h2>
             </el-col>
             <el-col :span="19">
                 <div class="componentsOfNav">
@@ -15,11 +15,12 @@
                             <el-menu-item index="4" v-if="this.$store.state.curUser.isLogin" @click="logout">退出</el-menu-item>
                         </el-menu>
                     </div>
+                    <span style="color: #909399; margin-top: 1.8vh">|</span>
                     <div class="userInfo">
                         <div class="userAvatar">
-                            <img  class="userImg" :src="$store.state.curUser.avatar"/>
+                            <img id="avatar" @click="displayUserDetail" style="margin-top: 0.7vh; margin-left: 2vw" v-if="$store.state.curUser.isLogin" class="userImg" :src="$store.state.curUser.avatar"/>
                         </div>
-                        <h3 class="username">{{$store.state.curUser.username}}</h3>
+                        <h4 class="username">{{$store.state.curUser.username}}</h4>
                     </div>
                 </div>
             </el-col>
@@ -36,6 +37,10 @@
             };
         },
         methods: {
+            displayUserDetail(){
+                let showList = ["showUserDetail"];
+                this.$store.commit("alterView", showList)
+            },
             handleSelect(key, keyPath) {
                 // console.log(key, keyPath);
             },
@@ -57,13 +62,10 @@
             login(){
                 let showList = ["showLoginCard"]
                 this.$store.commit("alterView", showList)
-                // this.$store.state.showViews.showLoginCard = true;
-                // this.$store.state.showViews.showCards = false;
             },
             recovery(){
                 let showList = ["showCards", "showQuickSer"]
-                this.$store.commit("alterView", showList)
-                // this.$store.state.showViews.showCards = true;
+                this.$store.commit("alterView", showList);
                 this.$store.state.nav.locationStr = "";
                 this.$store.commit('clearArticleList');
                 this.$store.commit('recovery');
@@ -73,6 +75,11 @@
 </script>
 
 <style scoped>
+    #avatar:HOVER {
+        cursor: pointer;
+        transition: all 0.6s;
+        transform: scale(1.1);
+    }
     .nav{
         height: 7vh;
         opacity: 80%;
@@ -104,7 +111,6 @@
     }
     .username{
         margin-top: 2vh;
-        margin-left: 2%;
         width: 10vw;
     }
 </style>

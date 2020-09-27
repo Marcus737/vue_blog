@@ -33,7 +33,6 @@
 <script>
     export default {
         name: "QuickSer",
-
         data() {
             return {
                 labelTypes: ["success","info","warning","danger"],
@@ -96,9 +95,7 @@
     }
 </script>
 
-<style>
-    .el-scrollbar__wrap{overflow-x: hidden;}
-</style>
+
 <style scoped>
     .search{
         opacity: 80%;

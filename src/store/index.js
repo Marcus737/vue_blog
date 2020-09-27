@@ -1,7 +1,4 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
 
-Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
@@ -35,14 +32,15 @@ export default new Vuex.Store({
             showQuickSer: true,
             showCommentPage: false,
             showCreateCard: false,
+            showUserDetail: false,
         },
         curUser: {
             isLogin: false,
             username: "",
             userId: "",
-            avatar: "https://tse3-mm.cn.bing.net/th/id/OIP.SPgi8xOde1kjnDteneAVeAAAAA?w=173&h=180&c=7&o=5&pid=1.7",
+            email: "",
+            avatar: "",
             token: ""
-
         },
         // baseUrl: "http://8.129.19.186:4567/myblog",
         // baseDownloadUrl: "http://8.129.19.186:4567/myblog/file/download?path="
@@ -54,8 +52,8 @@ export default new Vuex.Store({
             if(showList.length === 0){
                 return;
             }
-            //其余都不显示
             for (let view of Object.keys(state.showViews)) {
+                // 默认都不显示
                 state.showViews[view] = false
                 for (let showViewIndex in showList){
                     if (showList[showViewIndex] === view){

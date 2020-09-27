@@ -69,10 +69,6 @@
                 let showList = ["showMD", "showCommentPage"]
                 this.$store.commit("alterView", showList)
                 this.$store.state.article.curArticleId = articleId;
-                // this.$store.state.showViews.showMD = true;
-                // this.$store.state.showViews.showCards = false;
-                // this.$store.state.showViews.showQuickSer = false;
-                // this.$store.state.showViews.showCommentPage = true;
                 let url = this.$store.state.baseUrl + "/file/download?path=" + MDUrl;
                 let _this = this;
                 this.$axios.get(url).then((res) => {
