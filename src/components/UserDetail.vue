@@ -6,19 +6,19 @@
         </div>
         <div style="float: left; margin-top: 8vh">
             <div style="display: flex">
-                <h4 style="margin-left: 1vw; width: 20vw">用户名:</h4>
+                <h6 style="margin-left: 1vw; width: 20vw">用户名:</h6>
                 <el-input style="margin-top: 2vh" v-model="username" placeholder="请输入内容" :disabled="disabled"></el-input>
             </div>
             <div style="display: flex">
-                <h4 style="margin-left: 1vw; width: 20vw">密码:</h4>
+                <h6 style="margin-left: 1vw; width: 20vw">密码:</h6>
                 <el-input style="margin-top: 2vh" v-model="password" placeholder="*****" show-password :disabled="disabled"></el-input>
             </div>
             <div style="display: flex">
-                <h4 style="margin-left: 1vw; width: 20vw">电子邮箱:</h4>
+                <h6 style="margin-left: 1vw; width: 20vw">电子邮箱:</h6>
                 <el-input style="margin-top: 2vh" v-model="email" placeholder="请输入内容" :disabled="disabled"></el-input>
             </div>
             <div style="display: flex;">
-                <h4 style="margin-left: -3vw;width: 20vw">头像:</h4>
+                <h6 style="margin-left: -3vw;width: 20vw">头像:</h6>
                 <div style="width: 200px;height: 40px;background-color: #dcdfe6;">
                     <el-upload
                             class="avatar-uploader"

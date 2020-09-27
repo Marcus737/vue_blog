@@ -86,11 +86,13 @@
                     return;
                 }
                 let _this = this;
-                let url = this.$store.state.baseUrl + '/music/serSong?songName=' + encodeURI(this.songInfo);
+                let url = this.$store.state.baseUrl + "/music/serSong";
                 _this.isDisplaySerRes = true; //显示搜索结果
                 _this.displayMusicInfoList.length = 0; //清空搜索结果
                 _this.loading = true;  //开启加载动画
-                this.$axios.get(url).then(function (res) {
+                let musicParams = new FormData();
+                musicParams.append('songName', encodeURI(this.songInfo))
+                this.$axios.post(url, musicParams).then(function (res) {
                     for (let song of res.data.data) {
                         song["touchAble"] = false; // 新增touchAble属性
                         song["lrc"] = ""; // 服务器没有歌词地址，设为""
