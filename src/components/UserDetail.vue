@@ -19,14 +19,15 @@
             </div>
             <div style="display: flex;">
                 <h6 style="margin-left: -3vw;width: 20vw">头像:</h6>
-                <div style="width: 200px;height: 40px;background-color: #dcdfe6;">
+                <div style="width: 200px;height: 40px;">
                     <el-upload
+                            v-loading="loading"
                             class="avatar-uploader"
-                            :before-upload="uploadAvatar"
-                            :on-remove="handleRemove"
-                            :file-list="fileList"
-                            style="padding-top: 10px">
-                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                            action="http://192.168.199.207:4567/myblog/file/uploadAvatar"
+                            :show-file-list="false"
+                            :on-success="handleAvatarSuccess"
+                            :before-upload="beforeAvatarUpload">
+                        <img style="width: 50px; height: 50px; border-radius: 100%" v-if="imageUrl" :src="imageUrl" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
                 </div>
@@ -46,13 +47,14 @@
         name: "UserDetail",
         data() {
             return {
+                loading: false,
+                imgUrl: "",
+                avatarPath: "",
                 disabled: true,
                 username: this.$store.state.curUser.username,
                 password: "",
                 email: this.$store.state.curUser.email,
                 types: ["image/jpeg", "image/png"],
-                fileList: [],
-                imgFile: null,
             };
         },
         methods: {
@@ -73,15 +75,13 @@
             edit(){
                 this.disabled = false;
             },
-            handleRemove(){
-                this.fileList.length = 0;
+            handleAvatarSuccess(res, file){
+                this.imageUrl = URL.createObjectURL(file.raw);
+                this.avatarPath = res.data;
+                this.$message.success("头像上传成功");
+                this.loading = false;
             },
-            uploadAvatar(file) {
-                // 判断上传的数量是否超过限制
-                if (this.fileList.length >= 1){
-                    this.$message.error('只能上传一张哦');
-                    return false;
-                }
+            beforeAvatarUpload(file){
                 // 判断文件是否合法
                 let imgType = file.type;
                 let isOk = false;
@@ -99,30 +99,43 @@
                     this.$message.error('上传头像图片大小不能超过 2MB!');
                     return false
                 }
-                this.fileList.push({name: file.name, url: ''});
-                this.imgFile = file;
+                this.loading = true;
+                return true;
             },
             updateUser(){
                 if (this.username === "" || this.password === ""){
                     this.$message.error("用户名密码不能为空");
                     return;
                 }
+                if (this.avatarPath === ""){
+                    this.$message.error("请上传头像");
+                    return;
+                }
+                let reg = new RegExp('[\\w!#$%&\'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&\'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?')
+                // 验证邮箱
+                if (!reg.test(this.email)){
+                    this.$message.error("邮箱格式错误");
+                    return;
+                }
                 let url = this.$store.state.baseUrl + "/user/updateUser";
                 let _this = this;
-                let params = new FormData()
-                params.append('userId', this.$store.state.curUser.userId);
+                let params = new FormData();
+                params.append('userId', this.$store.state.curUser.userId)
                 params.append('username', this.username);
                 // 对密码进行md5加密
                 params.append('password', md5(this.password));
-                params.append('avatarImg', this.imgFile);
                 params.append('email', this.email);
+                params.append('avatarPath', this.avatarPath);
                 this.$axios.post(url, params).then(res => {
                     if (res.data.success){
-                        _this.$message.success("修改成功");
-                        _this.logout();
+                        this.$message.success("修改成功");
+                        let showList = ["showLoginCard"];
+                        this.$store.commit("alterView", showList);
+                    }else{
+                        this.$message.error(res.data.msg);
                     }
                 }).catch(error => {
-                    _this.$message.error("修改失败");
+                    this.$message.error("修改失败" + error);
                 })
             }
         }

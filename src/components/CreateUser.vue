@@ -49,14 +49,15 @@
             </div>
             <div style="display: flex;">
                 <h5 style="margin-left: 30px">头像:</h5>
-                <div style="margin-left: 10px ;width: 200px;height: 40px;background-color: #dcdfe6;">
+                <div style="margin-left: 10px ;width: 200px;height: 40px;">
                     <el-upload
+                            v-loading="loading"
                             class="avatar-uploader"
-                            :before-upload="uploadAvatar"
-                            :on-remove="handleRemove"
-                            :file-list="fileList"
-                            style="padding-top: 10px">
-                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                            action="http://192.168.199.207:4567/myblog/file/uploadAvatar"
+                            :show-file-list="false"
+                            :on-success="handleAvatarSuccess"
+                            :before-upload="beforeAvatarUpload">
+                        <img style="width: 50px; height: 50px; border-radius: 100%" v-if="imageUrl" :src="imageUrl" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                     </el-upload>
                 </div>
@@ -77,58 +78,27 @@
         name: "CreateUser",
         data() {
             return {
-                username: null,
-                pwd: null,
-                emailAddress: null,
+                loading: false,
+                imgUrl: "",
+                avatarPath: "",
+                username: "",
+                pwd: "",
+                emailAddress: "",
                 types: ["image/jpeg", "image/png"],
-                fileList: [],
-                imgFile: null,
             };
         },
         methods: {
             goBack(){
                 let showList = ["showLoginCard"]
                 this.$store.commit("alterView", showList)
-                // this.$store.state.showViews.showCreateCard = false;
-                // this.$store.state.showViews.showLoginCard = true;
             },
-            createUser(){
-                if (this.username === "" || this.pwd === ""){
-                    this.$message.error("用户名密码不能为空");
-                    return;
-                }
-                // 如果没有上传图片就使用默认图片
-                if (this.fileList.length === 0){
-                    this.$message.error("请上传头像");
-                    return;
-                }
-                let url = this.$store.state.baseUrl + "/user/saveUser";
-                let _this = this;
-                let params = new FormData()
-                params.append('username', this.username);
-                // 对密码进行md5加密
-                params.append('password', md5(this.pwd));
-                params.append('avatarImg', this.imgFile);
-                params.append('email', this.emailAddress);
-                this.$axios.post(url, params).then(res => {
-                    if (res.data.success){
-                        this.$message.success("创建成功");
-                    }
-                    let showList = ["showLoginCard"]
-                    this.$store.commit("alterView", showList)
-                }).catch(error => {
-                    this.$message.error("创建失败" + error);
-                })
+            handleAvatarSuccess(res, file){
+                this.imageUrl = URL.createObjectURL(file.raw);
+                this.avatarPath = res.data;
+                this.$message.success("头像上传成功");
+                this.loading = false;
             },
-            handleRemove(){
-                this.fileList.length = 0;
-            },
-            uploadAvatar(file) {
-                // 判断上传的数量是否超过限制
-                if (this.fileList.length >= 1){
-                    this.$message.error('只能上传一张哦');
-                    return false;
-                }
+            beforeAvatarUpload(file){
                 // 判断文件是否合法
                 let imgType = file.type;
                 let isOk = false;
@@ -146,8 +116,43 @@
                     this.$message.error('上传头像图片大小不能超过 2MB!');
                     return false
                 }
-                this.fileList.push({name: file.name, url: ''});
-                this.imgFile = file;
+                this.loading = true;
+                return true;
+            },
+            createUser(){
+                if (this.username === "" || this.pwd === ""){
+                    this.$message.error("用户名密码不能为空");
+                    return;
+                }
+                if (this.avatarPath === ""){
+                    this.$message.error("请上传头像");
+                    return;
+                }
+                let reg = new RegExp('[\\w!#$%&\'*+/=?^_`{|}~-]+(?:\\.[\\w!#$%&\'*+/=?^_`{|}~-]+)*@(?:[\\w](?:[\\w-]*[\\w])?\\.)+[\\w](?:[\\w-]*[\\w])?')
+                // 验证邮箱
+                if (!reg.test(this.emailAddress)){
+                    this.$message.error("邮箱格式错误");
+                    return;
+                }
+                let url = this.$store.state.baseUrl + "/user/saveUser";
+                let _this = this;
+                let params = new FormData()
+                params.append('username', this.username);
+                // 对密码进行md5加密
+                params.append('password', md5(this.pwd));
+                params.append('email', this.emailAddress);
+                params.append('avatarPath', this.avatarPath);
+                this.$axios.post(url, params).then(res => {
+                    if (res.data.success){
+                        this.$message.success("创建成功");
+                        let showList = ["showLoginCard"];
+                        this.$store.commit("alterView", showList);
+                    }else{
+                        this.$message.error(res.data.msg);
+                    }
+                }).catch(error => {
+                    this.$message.error("创建失败" + error);
+                })
             }
         }
     }

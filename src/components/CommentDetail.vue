@@ -83,25 +83,6 @@
                     this.$message.error("请先登录后操作")
                     return;
                 }
-                /**
-                let _this = this;
-                let url = this.$store.state.baseUrl + "/comment/saveComment";
-                let params = new FormData();
-                params.append('commentContent', this.commentContent);
-                params.append('userId', this.$store.state.curUser.userId);
-                params.append('articleId', this.$store.state.article.curArticleId);
-                this.$axios.post(url,  params).then(res => {
-                    if (res.data.success){
-                        _this.$message.success("评论保存成功");
-                        _this.commentContent = "";
-                        _this.refreshComment();
-                    }else {
-                        _this.$message.error(res.data.msg);
-                    }
-                }).catch(error => {
-                    ——this.$message.error('评论保存失败');
-                })
-                 */
                 let url = this.$store.state.baseUrl + "/comment/saveComment";
                 let _this = this;
                 let params = new FormData()
@@ -111,6 +92,7 @@
                 this.$axios.post(url, params).then(res => {
                     if (res.data.success){
                         this.$message.success("评论保存成功");
+                        _this.refreshComment();
                     }
                 }).catch(error => {
                     this.$message.error('评论保存失败');
