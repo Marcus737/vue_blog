@@ -56,6 +56,20 @@
             };
         },
         methods: {
+            logout(){
+                this.$store.state.curUser.username = "";
+                this.$store.state.curUser.userId = "";
+                this.$store.state.curUser.avatar = "";
+                let url = this.$store.state.baseUrl + "/security/logout";
+                let _this = this;
+                _this.$axios.get(url).then(res=>{
+                    _this.$store.state.curUser.isLogin = false;
+                    _this.$store.state.curUser.refreshToken = "";
+                    _this.$store.state.curUser.expireToken = "";
+                })
+                let showList = ["showLoginCard"]
+                this.$store.commit("alterView", showList)
+            },
             edit(){
                 this.disabled = false;
             },
@@ -104,10 +118,11 @@
                 params.append('email', this.email);
                 this.$axios.post(url, params).then(res => {
                     if (res.data.success){
-                        this.$message.success("修改成功");
+                        _this.$message.success("修改成功");
+                        _this.logout();
                     }
                 }).catch(error => {
-                    this.$message.error("修改失败");
+                    _this.$message.error("修改失败");
                 })
             }
         }

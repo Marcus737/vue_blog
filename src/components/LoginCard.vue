@@ -87,16 +87,12 @@
                                 _this.$store.state.curUser.token = loginRes.headers.token;
                                 let showList = ["showCards", "showQuickSer"]
                                 _this.$store.commit("alterView", showList)
-                                // 请求user信息
-                                let displayUserUrl = _this.$store.state.baseUrl + "/user/getUser";
-                                let userParams = new FormData();
-                                userParams.append("username", _this.username);
-                                _this.$axios.post(displayUserUrl, userParams).then(function (userRes) {
-                                    _this.$store.state.curUser.username = userRes.data.data.username;
-                                    _this.$store.state.curUser.userId = userRes.data.data.userId;
-                                    _this.$store.state.curUser.email = userRes.data.data.email;
-                                    _this.$store.state.curUser.avatar = _this.$store.state.baseDownloadUrl +  userRes.data.data.avatar;
-                                })
+                                // 设置user信息
+                                console.log(loginRes.data.data)
+                                _this.$store.state.curUser.username = loginRes.data.data.username;
+                                _this.$store.state.curUser.userId = loginRes.data.data.userId;
+                                _this.$store.state.curUser.email = loginRes.data.data.email;
+                                _this.$store.state.curUser.avatar = _this.$store.state.baseDownloadUrl +  loginRes.data.data.avatar;
                             }else {
                                 _this.$message.error(loginRes.data.msg);
                             }

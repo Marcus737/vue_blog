@@ -99,7 +99,8 @@
                 }
                 // 如果没有上传图片就使用默认图片
                 if (this.fileList.length === 0){
-                    this.fileList.push({name: 'defaultImg', url: 'https://tse3-mm.cn.bing.net/th/id/OIP.SPgi8xOde1kjnDteneAVeAAAAA?w=173&h=180&c=7&o=5&pid=1.7'})
+                    this.$message.error("请上传头像");
+                    return;
                 }
                 let url = this.$store.state.baseUrl + "/user/saveUser";
                 let _this = this;

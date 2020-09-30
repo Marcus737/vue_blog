@@ -65,7 +65,6 @@
 
 <style scoped>
     .index{
-        overflow: hidden;
         text-align: center;
     }
 </style>

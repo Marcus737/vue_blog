@@ -15,7 +15,6 @@ new Vue({
 
 //axios开始
 import axios from 'axios';
-
 Vue.prototype.$axios = axios;
 // 添加请求拦截器
 axios.interceptors.request.use(function (config) {
