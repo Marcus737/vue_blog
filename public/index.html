@@ -5,12 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!--    <meta name="viewport" content="width=device-width,initial-scale=1.0">-->
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
     <title>BLOG</title>
 </head>
 <body>
+
 <!--要在elementUI之前引用-->
 <script src="https://cdn.bootcss.com/vue/2.6.10/vue.runtime.min.js"></script>
 <!-- 引入组件库 -->
@@ -18,11 +20,23 @@
 <script src="https://cdn.bootcss.com/vue-router/3.0.2/vue-router.min.js"></script>
 <script src="https://cdn.bootcss.com/vuex/3.1.0/vuex.min.js"></script>
 
-<div id="app"></div>
+
+
+<div id="app">
+    <script src="https://cdn.jsdelivr.net/npm/bubbly-bg@1.0.0/dist/bubbly-bg.js"></script>
+    <script>bubbly({
+        colorStart: "#F0F8FF",
+        colorStop: "#D4F2E7",
+        compose: "source-over",
+        bubbleFunc: () => `hsla(${Math.random() * 360}, 100%, 50%, ${Math.random() * 0.25})`
+    });
+    </script>
+</div>
 <!-- built files will be auto injected -->
 </body>
 
 <style>
     .el-scrollbar__wrap{overflow-x: hidden;}
+
 </style>
 </html>

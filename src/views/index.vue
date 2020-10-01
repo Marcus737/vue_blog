@@ -7,7 +7,7 @@
                 </el-col>
             </el-row>
         </div>
-        <div style="opacity: 95%">
+        <div style="opacity: 100%">
             <el-row :gutter="30">
                 <el-col :xs="7" :sm="7" :md="6" :lg="6" :xl="6">
                     <MusicView/>

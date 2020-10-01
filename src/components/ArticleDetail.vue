@@ -23,7 +23,7 @@
                     />
             </div>
         </el-scrollbar>
-        <div style="width: 45vw; height:1vh; background-color: #fbfbfb; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px"></div>
+<!--        <div style="width: 45vw; height:1vh; background-color: #fbfbfb; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px"></div>-->
     </div>
 </template>
 
