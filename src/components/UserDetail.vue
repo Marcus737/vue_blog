@@ -23,7 +23,7 @@
                     <el-upload
                             v-loading="loading"
                             class="avatar-uploader"
-                            action="http://192.168.199.207:4567/myblog/file/uploadAvatar"
+                            action="http://8.129.19.186:4567/myblog/file/uploadAvatar"
                             :show-file-list="false"
                             :on-success="handleAvatarSuccess"
                             :before-upload="beforeAvatarUpload">
@@ -129,8 +129,10 @@
                 this.$axios.post(url, params).then(res => {
                     if (res.data.success){
                         this.$message.success("修改成功");
+                        _this.logout();
                         let showList = ["showLoginCard"];
-                        this.$store.commit("alterView", showList);
+                        _this.$store.commit("alterView", showList);
+                        _this.logout();
                     }else{
                         this.$message.error(res.data.msg);
                     }

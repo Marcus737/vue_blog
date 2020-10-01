@@ -53,7 +53,7 @@
                     <el-upload
                             v-loading="loading"
                             class="avatar-uploader"
-                            action="http://192.168.199.207:4567/myblog/file/uploadAvatar"
+                            action="http://8.129.19.186:4567/myblog/file/uploadAvatar"
                             :show-file-list="false"
                             :on-success="handleAvatarSuccess"
                             :before-upload="beforeAvatarUpload">

@@ -112,11 +112,11 @@
                 displayMusicInfoList: [],
                 musicList: [],
                 music: {
-                    title: '谪仙',
-                    artist: '伊格赛听&叶里',
-                    src: 'http://ef.sycdn.kuwo.cn/96ec08e967f73abeeec70961d506607d/5f492bef/resource/n2/82/69/1433435136.mp3',
-                    pic: 'http://topmusic.kuwo.cn/today_recommend/images/202001/20200107_7201280/3568970/1.jpg',
-                    lrc: '',
+                    title: '打上花火',
+                    artist: 'DAOKO,米津玄師',
+                    src: 'https://app.onenine.cc/m/api/url/yqd/id/ee964iTPnMCBrdWHPR5oBjRWyxPGMJChwhTkKc4h2T5arndydJo/format/320000',
+                    pic: 'https://p4.music.126.net/ZUCE_1Tl_hkbtamKmSNXEg==/109951163009282836.jpg',
+                    lrc: 'https://app.onenine.cc/m/api/lrc/yqd/id/ee964iTPnMCBrdWHPR5oBjRWyxPGMJChwhTkKc4h2T5arndydJo',
                 }
             }
         }
@@ -125,7 +125,7 @@
 
 <style scoped>
     .musicView{
-        margin-top: 7%;  opacity: 80%
+        margin-top: 7%;
     }
     .firstDiv{
         background-color: whitesmoke;

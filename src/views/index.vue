@@ -1,6 +1,5 @@
 <template>
     <div class="index">
-<!--        <particles-bg type="polygon" :bg="true" />-->
         <div>
             <el-row>
                 <el-col :span="24">
@@ -8,17 +7,16 @@
                 </el-col>
             </el-row>
         </div>
-
         <div style="opacity: 95%">
             <el-row :gutter="30">
                 <el-col :xs="7" :sm="7" :md="6" :lg="6" :xl="6">
                     <MusicView/>
                 </el-col>
                 <el-col :xs="10" :sm="10" :md="11" :lg="11" :xl="11">
-                    <LoginCard  v-if="this.$store.state.showViews.showLoginCard" />
+                    <LoginCard  v-if="this.$store.state.showViews.showLoginCard"/>
                     <CreateUser v-if="this.$store.state.showViews.showCreateCard"/>
-                    <SlidingCard style="overflow: hidden" v-show="this.$store.state.showViews.showCards" />
-                    <ArticleDetail v-show="this.$store.state.showViews.showMD" />
+                    <SlidingCard v-show="this.$store.state.showViews.showCards"/>
+                    <ArticleDetail v-show="this.$store.state.showViews.showMD"/>
                     <UserDetail v-if="this.$store.state.showViews.showUserDetail"/>
                 </el-col>
                 <el-col  :xs="7" :sm="7" :md="7" :lg="7" :xl="7">
@@ -55,11 +53,6 @@
             LoginCard,
             CreateUser
         },
-        data(){
-            return {
-
-            }
-        }
     }
 </script>
 

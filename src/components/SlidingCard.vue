@@ -118,7 +118,6 @@
     .sc{
         overflow: auto;
         margin-top: 2%;
-        opacity: 90%
     }
     .card{
         border-radius: 20px;

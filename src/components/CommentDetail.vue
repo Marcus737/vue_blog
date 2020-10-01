@@ -51,9 +51,6 @@
 
         },
         methods: {
-            validation(){
-
-            },
             refreshComment(){
                 let _this = this;
                 let commentUrl = this.$store.state.baseUrl + "/comment/listCommentsByArticleId?articleId=" + this.$store.state.article.curArticleId;
@@ -93,6 +90,8 @@
                     if (res.data.success){
                         this.$message.success("评论保存成功");
                         _this.refreshComment();
+                    }else{
+                        this.$message.error("评论保存失败");
                     }
                 }).catch(error => {
                     this.$message.error('评论保存失败');

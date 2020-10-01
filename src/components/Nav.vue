@@ -2,7 +2,6 @@
     <div class="nav">
         <el-row :gutter="10">
             <el-col :span="5">
-<!--                <img style="float: left;height: 8vh; width: 14vw" src="../assets/logo.png"/>-->
                 <h2 class="logo" style="margin-top: 1vh; font-family: 华文仿宋,serif; color: skyblue">NEVER GIVE UP</h2>
             </el-col>
             <el-col :span="19">
@@ -82,7 +81,6 @@
     }
     .nav{
         height: 7vh;
-        opacity: 80%;
         background-color: #fbfbfb;
     }
     .logo{
