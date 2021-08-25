@@ -1,0 +1,32 @@
+{
+  "name": "myblog4_test",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "axios": "^0.21.1",
+    "babel-polyfill": "^6.26.0",
+    "core-js": "^3.6.5",
+    "js-md5": "^0.7.3",
+    "mavon-editor": "^2.9.0",
+    "vue": "^2.6.12",
+    "vue-aplayer": "^1.6.1",
+    "vue-router": "^3.5.2"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
